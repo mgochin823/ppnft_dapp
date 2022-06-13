@@ -373,7 +373,7 @@ function App() {
             jc={"center"}
             ai={"left"}
             style={{
-              paddingRight: "220px",}}>
+             width:"80%", height:"auto"}}>
         <StyledImg src={"/config/images/hero_right.png"} />
         </s.Container>
 
