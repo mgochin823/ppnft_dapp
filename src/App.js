@@ -9,14 +9,13 @@ const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
 
 export const StyledButton = styled.button`
-  padding: 10px;
+  padding: 15px 25px;
   border-radius: 50px;
   border: none;
   background-color: var(--secondary);
-  padding: 10px;
   font-weight: bold;
   color: var(--secondary-text);
-  width: 100px;
+  width: 50%;
   cursor: pointer;
   box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
   -webkit-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
@@ -66,25 +65,22 @@ export const ResponsiveWrapper = styled.div`
 `;
 
 export const StyledLogo = styled.img`
-  width: 200px;
+  width: 30%;
   @media (min-width: 767px) {
-    width: 300px;
+    width: 400px;
   }
   transition: width 0.5s;
   transition: height 0.5s;
 `;
 
 export const StyledImg = styled.img`
-  box-shadow: 0px 5px 11px 2px rgba(0, 0, 0, 0.7);
-  border: 4px dashed var(--secondary);
-  background-color: var(--accent);
-  border-radius: 100%;
-  width: 200px;
+
+  width: 650px;
   @media (min-width: 900px) {
-    width: 250px;
+    width: 550px;
   }
   @media (min-width: 1000px) {
-    width: 300px;
+    width: 650px;
   }
   transition: width 0.5s;
 `;
@@ -99,7 +95,7 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
+  const [feedback, setFeedback] = useState(`Adopt your Pittie Party NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -145,7 +141,7 @@ function App() {
       .then((receipt) => {
         console.log(receipt);
         setFeedback(
-          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
+          `Congrats on your ${CONFIG.NFT_NAME} adoption. Go visit them on Opensea.io to view it.`
         );
         setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
@@ -195,31 +191,36 @@ function App() {
 
   return (
     <s.Screen>
+      
       <s.Container
-        flex={1}
-        ai={"center"}
-        style={{ padding: 24, backgroundColor: "var(--primary)" }}
+        flex={2}
+        ai={"left"}
+        style={{ width:"100%", backgroundColor: "var(--primary)"}}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
-      >
-        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+      >        <s.SpacerSmall />
         <s.SpacerSmall />
-        <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
+        <StyledLogo alt={"logo"} src={"/config/images/pp_clean_logo_red_sm.png"} style= {{width:"40%", padding:"0px 80px"}}/>
+        <s.SpacerSmall />
+        <ResponsiveWrapper flex={1} style={{ padding: 14 }} test>
           <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg alt={"example"} src={"/config/images/example.gif"} />
           </s.Container>
-          <s.SpacerLarge />
+         
           <s.Container
             flex={2}
             jc={"center"}
             ai={"center"}
             style={{
-              backgroundColor: "var(--accent)",
               padding: 24,
-              borderRadius: 24,
-              border: "4px dashed var(--secondary)",
-              boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+              fontFamily: "Montserrat",
+              fontWeight:"600",
+              borderRadius: 10,
+              paddingTop: "20px",
+            
             }}
           >
+               
+
+            
             <s.TextTitle
               style={{
                 textAlign: "center",
@@ -246,7 +247,7 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  The sale has ended.
+                  Pittie adoptions have ended.
                 </s.TextTitle>
                 <s.TextDescription
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
@@ -266,13 +267,9 @@ function App() {
                   1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
                   {CONFIG.NETWORK.SYMBOL}.
                 </s.TextTitle>
-                <s.SpacerXSmall />
-                <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
-                >
+                <s.TextDescription style={{ textAlign: "center", color: "var(--accent-text)" }}>
                   Excluding gas fees.
                 </s.TextDescription>
-                <s.SpacerSmall />
                 {blockchain.account === "" ||
                 blockchain.smartContract === null ? (
                   <s.Container ai={"center"} jc={"center"}>
@@ -360,7 +357,7 @@ function App() {
                           getData();
                         }}
                       >
-                        {claimingNft ? "BUSY" : "BUY"}
+                        {claimingNft ? "BUSY" : "ADOPT PITTIE(S)"}
                       </StyledButton>
                     </s.Container>
                   </>
@@ -370,37 +367,33 @@ function App() {
             <s.SpacerMedium />
           </s.Container>
           <s.SpacerLarge />
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg
-              alt={"example"}
-              src={"/config/images/example.gif"}
-              style={{ transform: "scaleX(-1)" }}
-            />
-          </s.Container>
+        
+           <s.Container
+            flex={2}
+            jc={"center"}
+            ai={"left"}
+            style={{
+              paddingRight: "220px",}}>
+        <StyledImg src={"/config/images/hero_right.png"} />
+        </s.Container>
+
         </ResponsiveWrapper>
-        <s.SpacerMedium />
-        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+        <s.Container jc={"center"} ai={"center"} style={{ padding: "20px 20px", width: "100%", backgroundColor: "#eee3ce" }}>
           <s.TextDescription
             style={{
               textAlign: "center",
+              fontFamily: "arial",
+              fontSize:"11px",
               color: "var(--primary-text)",
             }}
           >
             Please make sure you are connected to the right network (
-            {CONFIG.NETWORK.NAME} Mainnet) and the correct address. Please note:
-            Once you make the purchase, you cannot undo this action.
-          </s.TextDescription>
-          <s.SpacerSmall />
-          <s.TextDescription
-            style={{
-              textAlign: "center",
-              color: "var(--primary-text)",
-            }}
-          >
+            {CONFIG.NETWORK.NAME} Mainnet) and the correct address. Please note: Once you make the purchase, you cannot undo this action.
+
             We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
-            successfully mint your NFT. We recommend that you don't lower the
-            gas limit.
+            successfully mint your NFT. We recommend that you don't lower the gas limit.
           </s.TextDescription>
+        
         </s.Container>
       </s.Container>
     </s.Screen>
